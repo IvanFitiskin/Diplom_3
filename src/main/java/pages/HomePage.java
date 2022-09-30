@@ -8,7 +8,10 @@ import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 
 
-public class HomePage implements IPage<HomePage>{
+public class HomePage implements IPage<HomePage> {
+
+    private final By singInButtonLocator = byXpath("//button[text()='Войти в аккаунт']");
+    private final By createOrderButtonLocator = byXpath("//button[text()='Оформить заказ']");
 
     private final By titleLocator = byXpath("//h1[text()='Соберите бургер']");
     private final By accountButtonLocator = byXpath("//a//p[text()='Личный Кабинет']");
@@ -19,8 +22,15 @@ public class HomePage implements IPage<HomePage>{
         return new HomePage();
     }
 
-    public RegistrationPage clickAccountButton() {
+    public void clickAccountButton() {
         $(accountButtonLocator).shouldBe(enabled).click();
-        return new RegistrationPage();
+    }
+
+    public void clickSingInButton() {
+        $(singInButtonLocator).shouldBe(enabled).click();
+    }
+
+    public boolean isOrderButtonExist() {
+        return $(createOrderButtonLocator).exists();
     }
 }

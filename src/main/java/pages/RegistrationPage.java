@@ -13,9 +13,13 @@ import static com.codeborne.selenide.Selenide.$;
 public class RegistrationPage extends AuthorizationFormPage implements IPage<RegistrationPage> {
 
     private final By nameInputLocator = byXpath("//label[text()='Имя']/..//input[@type='text']");
+    private final By passwordInputLocator = byXpath("//input[@type='password']");
+
     private final By submitButtonLocator = byXpath("//button[text()='Зарегистрироваться']");
 
     private final By errorMessageLocator = byXpath("//p[text()='Некорректный пароль']");
+
+    private final By goToLoginButtonLocator = byXpath("//a[@href='/login']");
 
     @Override
     By enterTitleLocator() {
@@ -41,6 +45,10 @@ public class RegistrationPage extends AuthorizationFormPage implements IPage<Reg
 
     public void findErrorMessage() {
         $(errorMessageLocator).shouldBe(visible);
+    }
+
+    public void clickGoToLoginButton() {
+        $(goToLoginButtonLocator).shouldBe(visible).click();
     }
 
 }

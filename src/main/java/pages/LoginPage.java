@@ -3,7 +3,6 @@ package pages;
 import models.UserCredentials;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
@@ -11,6 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class LoginPage extends AuthorizationFormPage implements IPage<LoginPage> {
 
     private final By submitButtonLocator = byXpath("//button[text()='Войти']");
+    private final By passwordInputLocator = byXpath("//input[@type='password']");
 
     @Override
     By enterTitleLocator() {
@@ -26,12 +26,10 @@ public class LoginPage extends AuthorizationFormPage implements IPage<LoginPage>
         return new LoginPage();
     }
 
-    public HomePage submitLogin(UserCredentials userCredentials) {
+    public void submitLogin(UserCredentials userCredentials) {
         $(emailInputLocator).setValue(userCredentials.getEmail());
         $(passwordInputLocator).setValue(userCredentials.getPassword());
         $(submitButtonLocator).click();
-
-        return new HomePage();
     }
 
 }

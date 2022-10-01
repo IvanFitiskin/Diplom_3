@@ -6,18 +6,15 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 
-public class PasswordRecoveryPage extends AuthorizationFormPage implements IPage<PasswordRecoveryPage> {
+public class PasswordRecoveryPage extends AppHeaderPage implements IPage<PasswordRecoveryPage> {
 
+    private final By emailInputLocator = byXpath("//label[text()='Email']/..//input[@type='text']");
     private final By goToLoginButtonLocator = byXpath("//a[@href='/login']");
-
-    @Override
-    By enterTitleLocator() {
-        return byXpath("//h2[text()='Восстановление пароля']");
-    }
+    private final By enterTitleLocator = byXpath("//h2[text()='Восстановление пароля']");
 
     @Override
     public PasswordRecoveryPage waitLoading() {
-        $(enterTitleLocator()).shouldBe(visible);
+        $(enterTitleLocator).shouldBe(visible);
         $(emailInputLocator).shouldBe(visible);
 
         return new PasswordRecoveryPage();

@@ -7,8 +7,7 @@ import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Selenide.open;
 
-public class NavigationToLoginTest {
-
+public class NavigationApplicationTest {
 
     @Test
     public void goLoginFromHomeAccountButtonTest() {
@@ -59,5 +58,29 @@ public class NavigationToLoginTest {
 
         LoginPage loginPage = new LoginPage();
         loginPage.waitLoading();
+    }
+
+    @Test
+    public void goHomeFromLoginTest() {
+        open("https://stellarburgers.nomoreparties.site/login");
+
+        LoginPage loginPage = new LoginPage();
+        loginPage.waitLoading()
+                .clickLogo();
+
+        HomePage homePage = new HomePage();
+        homePage.waitLoading();
+    }
+
+    @Test
+    public void goConstructorFromLoginTest() {
+        open("https://stellarburgers.nomoreparties.site/login");
+
+        LoginPage loginPage = new LoginPage();
+        loginPage.waitLoading()
+                .clickConstructorButton();
+
+        HomePage homePage = new HomePage();
+        homePage.waitLoading();
     }
 }

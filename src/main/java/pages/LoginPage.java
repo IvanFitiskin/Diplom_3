@@ -7,19 +7,17 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 
-public class LoginPage extends AuthorizationFormPage implements IPage<LoginPage> {
+public class LoginPage extends AppHeaderPage implements IPage<LoginPage> {
 
     private final By submitButtonLocator = byXpath("//button[text()='Войти']");
+    private final By emailInputLocator = byXpath("//label[text()='Email']/..//input[@type='text']");
     private final By passwordInputLocator = byXpath("//input[@type='password']");
 
-    @Override
-    By enterTitleLocator() {
-        return byXpath("//h2[text()='Вход']");
-    }
+    private final By enterTitleLocator = byXpath("//h2[text()='Вход']");
 
     @Override
     public LoginPage waitLoading() {
-        $(enterTitleLocator()).shouldBe(visible);
+        $(enterTitleLocator).shouldBe(visible);
         $(emailInputLocator).shouldBe(visible);
         $(passwordInputLocator).shouldBe(visible);
 

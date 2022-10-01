@@ -1,4 +1,5 @@
 import client.AuthClient;
+import io.restassured.response.ValidatableResponse;
 import models.User;
 import models.UserCredentials;
 import org.junit.After;
@@ -8,14 +9,12 @@ import pages.Account;
 import pages.HomePage;
 import pages.LoginPage;
 
+import static com.codeborne.selenide.Selenide.localStorage;
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-public class LoginTest {
+public class NavigationAuthUserTest {
 
     private AuthClient authClient;
-    private User user;
     private UserCredentials userCredentials;
 
     private static final String TEST_NAME = "FitiskinIP";
@@ -25,12 +24,17 @@ public class LoginTest {
     @Before
     public void setUp() {
         authClient = new AuthClient();
-        user = new User(TEST_NAME, TEST_EMAIL, TEST_PASSWORD);
+        User user = new User(TEST_NAME, TEST_EMAIL, TEST_PASSWORD);
         userCredentials = UserCredentials.from(user);
 
-        authClient.create(user);
+        ValidatableResponse response = authClient.create(user);
 
-        open("https://stellarburgers.nomoreparties.site/login");
+        String accessToken = response.extract().path("accessToken");
+        String refreshToken = response.extract().path("refreshToken");
+
+        open("https://stellarburgers.nomoreparties.site");
+        localStorage().setItem("accessToken", accessToken);
+        localStorage().setItem("refreshToken", refreshToken);
     }
 
     @After
@@ -39,25 +43,17 @@ public class LoginTest {
     }
 
     @Test
-    public void loginTest() {
-        LoginPage loginPage = new LoginPage();
-        loginPage.waitLoading()
-                .submitLogin(userCredentials);
-
+    public void logoutTest() {
         HomePage homePage = new HomePage();
-        boolean isLogin = homePage.waitLoading()
-                .isOrderButtonExist();
-
-        assertTrue("User is not authorization", isLogin);
-
-        homePage.clickAccountButton();
+        homePage.waitLoading()
+                .clickAccountButton();
 
         Account account = new Account();
-        account.waitLoading();
+        account.waitLoading()
+                .clickLogoutButton();
 
-        String name = account.getName();
-        String login = account.getLogin();
-        assertEquals("name does not match", user.getName(), name);
-        assertEquals("email does not match", user.getEmail(), login);
+        LoginPage loginPage = new LoginPage();
+        loginPage.waitLoading();
     }
+
 }

@@ -8,22 +8,17 @@ import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 
 
-public class HomePage implements IPage<HomePage> {
+public class HomePage extends AppHeaderPage implements IPage<HomePage> {
 
     private final By singInButtonLocator = byXpath("//button[text()='Войти в аккаунт']");
     private final By createOrderButtonLocator = byXpath("//button[text()='Оформить заказ']");
 
     private final By titleLocator = byXpath("//h1[text()='Соберите бургер']");
-    private final By accountButtonLocator = byXpath("//a//p[text()='Личный Кабинет']");
 
     @Override
     public HomePage waitLoading() {
         $(titleLocator).shouldBe(visible);
         return new HomePage();
-    }
-
-    public void clickAccountButton() {
-        $(accountButtonLocator).shouldBe(enabled).click();
     }
 
     public void clickSingInButton() {

@@ -1,4 +1,6 @@
 import client.AuthClient;
+import io.qameta.allure.Epic;
+import io.qameta.allure.junit4.DisplayName;
 import models.User;
 import models.UserCredentials;
 import org.junit.After;
@@ -12,6 +14,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.junit.Assert.assertEquals;
 
+@Epic("Регистрация")
 public class RegistrationTest {
 
     private AuthClient authClient;
@@ -39,6 +42,7 @@ public class RegistrationTest {
     }
 
     @Test
+    @DisplayName("Регистрация пользователя")
     public void registrationTest() {
         RegistrationPage registrationPage = new RegistrationPage();
         registrationPage

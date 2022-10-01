@@ -1,16 +1,17 @@
 import client.AuthClient;
+import io.qameta.allure.Epic;
+import io.qameta.allure.junit4.DisplayName;
 import models.User;
 import models.UserCredentials;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.junit.Assert.assertEquals;
 
+@Epic("Регистрация")
 public class RegistrationWrongDataTest {
 
     private AuthClient authClient;
@@ -31,7 +32,8 @@ public class RegistrationWrongDataTest {
     }
 
     @Test
-    public void registrationTest() {
+    @DisplayName("Попытка регистрации пользователя с коротким паролем")
+    public void tryRegistrationWithWrongDataTest() {
         RegistrationPage registrationPage = new RegistrationPage();
         registrationPage
                 .waitLoading()

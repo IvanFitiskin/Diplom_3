@@ -1,10 +1,12 @@
 import client.AuthClient;
+import io.qameta.allure.Epic;
+import io.qameta.allure.junit4.DisplayName;
 import models.User;
 import models.UserCredentials;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pages.Account;
+import pages.AccountPage;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -12,6 +14,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@Epic("Авторизация")
 public class LoginTest {
 
     private AuthClient authClient;
@@ -39,6 +42,7 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Авторизация пользователя")
     public void loginTest() {
         LoginPage loginPage = new LoginPage();
         loginPage.waitLoading()
@@ -52,11 +56,11 @@ public class LoginTest {
 
         homePage.clickAccountButton();
 
-        Account account = new Account();
-        account.waitLoading();
+        AccountPage accountPage = new AccountPage();
+        accountPage.waitLoading();
 
-        String name = account.getName();
-        String login = account.getLogin();
+        String name = accountPage.getName();
+        String login = accountPage.getLogin();
         assertEquals("name does not match", user.getName(), name);
         assertEquals("email does not match", user.getEmail(), login);
     }

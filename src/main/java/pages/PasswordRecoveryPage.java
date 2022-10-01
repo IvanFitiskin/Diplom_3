@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -13,6 +14,7 @@ public class PasswordRecoveryPage extends AppHeaderPage implements IPage<Passwor
     private final By enterTitleLocator = byXpath("//h2[text()='Восстановление пароля']");
 
     @Override
+    @Step("Ожидание домашней страницы")
     public PasswordRecoveryPage waitLoading() {
         $(enterTitleLocator).shouldBe(visible);
         $(emailInputLocator).shouldBe(visible);
@@ -20,6 +22,7 @@ public class PasswordRecoveryPage extends AppHeaderPage implements IPage<Passwor
         return new PasswordRecoveryPage();
     }
 
+    @Step("Нажатие кнопки \"Войти\"")
     public void clickGoToLoginButton() {
         $(goToLoginButtonLocator).shouldBe(visible).click();
     }

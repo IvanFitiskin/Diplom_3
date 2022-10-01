@@ -1,12 +1,13 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 
-public class Account implements IPage<Account> {
+public class AccountPage implements IPage<AccountPage> {
 
     private final By logoutLocator = byXpath("//button[text()='Выход']");
 
@@ -22,16 +23,18 @@ public class Account implements IPage<Account> {
         return $(loginInputLocator).shouldBe(visible).getValue();
     }
 
+    @Step("Нажатие кнопки \"Выйти\"")
     public void clickLogoutButton() {
         $(logoutLocator).click();
     }
 
     @Override
-    public Account waitLoading() {
+    @Step("Ожидание домашней страницы")
+    public AccountPage waitLoading() {
         $(nameInputLocator).shouldBe(visible);
         $(loginInputLocator).shouldBe(visible);
         $(passwordInputLocator).shouldBe(visible);
 
-        return new Account();
+        return new AccountPage();
     }
 }

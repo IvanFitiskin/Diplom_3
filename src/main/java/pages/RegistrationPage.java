@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import models.User;
 import org.openqa.selenium.By;
 
@@ -23,6 +24,7 @@ public class RegistrationPage extends AppHeaderPage implements IPage<Registratio
     private final By enterTitleLocator = byXpath("//h2[text()='Регистрация']");
 
     @Override
+    @Step("Ожидание домашней страницы")
     public RegistrationPage waitLoading() {
         $(enterTitleLocator).shouldBe(enabled);
         $(nameInputLocator).shouldBe(visible);
@@ -32,6 +34,7 @@ public class RegistrationPage extends AppHeaderPage implements IPage<Registratio
         return new RegistrationPage();
     }
 
+    @Step("Заполнение формы регистрации")
     public void submitRegistration(User user) {
         $(nameInputLocator).setValue(user.getName());
         $(emailInputLocator).setValue(user.getEmail());
@@ -39,12 +42,13 @@ public class RegistrationPage extends AppHeaderPage implements IPage<Registratio
         $(submitButtonLocator).click();
     }
 
+    @Step("Проверка появления сообщения об ошибке")
     public void findErrorMessage() {
         $(errorMessageLocator).shouldBe(visible);
     }
 
+    @Step("Нажатие кнопки \"Войти\"")
     public void clickGoToLoginButton() {
         $(goToLoginButtonLocator).shouldBe(visible).click();
     }
-
 }

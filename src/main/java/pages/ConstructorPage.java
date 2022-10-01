@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import java.util.Objects;
@@ -18,29 +19,35 @@ public class ConstructorPage extends HomePage {
     private final By sauceButtonLocator = byXpath("//span[text()='Соусы']/parent::div");
     private final By fillingButtonLocator = byXpath("//span[text()='Начинки']/parent::div");
 
+    @Step("Нажатие кнопки \"Булки\"")
     public ConstructorPage clickBunButton() {
         $(bunButtonLocator).shouldBe(enabled).click();
         return new ConstructorPage();
     }
 
+    @Step("Нажатие кнопки \"Соусы\"")
     public ConstructorPage clickSauceButton() {
         $(sauceButtonLocator).shouldBe(enabled).click();
         return new ConstructorPage();
     }
 
+    @Step("Нажатие кнопки \"Начинки\"")
     public ConstructorPage clickFillingButton() {
         $(fillingButtonLocator).shouldBe(enabled).click();
         return new ConstructorPage();
     }
 
+    @Step("Проверка свойства selected кнопки \"Булки\"")
     public boolean isSelectedBunButton() {
         return isSelectedButton(bunButtonLocator);
     }
 
+    @Step("Проверка свойства selected кнопки \"Соусы\"")
     public boolean isSelectedSauceButton() {
         return isSelectedButton(sauceButtonLocator);
     }
 
+    @Step("Проверка свойства selected кнопки \"Начинки\"")
     public boolean isSelectedFillingButton() {
         return isSelectedButton(fillingButtonLocator);
     }

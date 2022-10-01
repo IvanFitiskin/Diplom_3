@@ -1,18 +1,20 @@
 import client.AuthClient;
+import io.qameta.allure.Epic;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import models.User;
 import models.UserCredentials;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pages.Account;
+import pages.AccountPage;
 import pages.HomePage;
 import pages.LoginPage;
 
-import static com.codeborne.selenide.Selenide.localStorage;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
-public class NavigationAuthUserTest {
+@Epic("Авторизация")
+public class LogoutTest {
 
     private AuthClient authClient;
     private UserCredentials userCredentials;
@@ -35,6 +37,9 @@ public class NavigationAuthUserTest {
         open("https://stellarburgers.nomoreparties.site");
         localStorage().setItem("accessToken", accessToken);
         localStorage().setItem("refreshToken", refreshToken);
+
+        // обновляем страницу, чтобы нормально работали accessToken и refreshToken
+        refresh();
     }
 
     @After
@@ -43,13 +48,14 @@ public class NavigationAuthUserTest {
     }
 
     @Test
+    @DisplayName("Выход из личного кабинета")
     public void logoutTest() {
         HomePage homePage = new HomePage();
         homePage.waitLoading()
                 .clickAccountButton();
 
-        Account account = new Account();
-        account.waitLoading()
+        AccountPage accountPage = new AccountPage();
+        accountPage.waitLoading()
                 .clickLogoutButton();
 
         LoginPage loginPage = new LoginPage();

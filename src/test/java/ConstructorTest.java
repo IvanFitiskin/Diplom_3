@@ -1,3 +1,5 @@
+import io.qameta.allure.Epic;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import pages.ConstructorPage;
 import pages.HomePage;
@@ -6,9 +8,11 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@Epic("Конструктор")
 public class ConstructorTest {
 
     @Test
+    @DisplayName("Открытие списка соусов")
     public void openSauceBoardTest() {
         open("https://stellarburgers.nomoreparties.site");
 
@@ -28,6 +32,7 @@ public class ConstructorTest {
     }
 
     @Test
+    @DisplayName("Открытие списка булочек")
     public void openBunBoardTest() {
         open("https://stellarburgers.nomoreparties.site");
 
@@ -48,6 +53,7 @@ public class ConstructorTest {
     }
 
     @Test
+    @DisplayName("Открытие списка начинки")
     public void openFillingBoardTest() {
         open("https://stellarburgers.nomoreparties.site");
 

@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import models.UserCredentials;
 import org.openqa.selenium.By;
 
@@ -16,6 +17,7 @@ public class LoginPage extends AppHeaderPage implements IPage<LoginPage> {
     private final By enterTitleLocator = byXpath("//h2[text()='Вход']");
 
     @Override
+    @Step("Ожидание домашней страницы")
     public LoginPage waitLoading() {
         $(enterTitleLocator).shouldBe(visible);
         $(emailInputLocator).shouldBe(visible);
@@ -24,10 +26,10 @@ public class LoginPage extends AppHeaderPage implements IPage<LoginPage> {
         return new LoginPage();
     }
 
+    @Step("Заполнение формы авторизации")
     public void submitLogin(UserCredentials userCredentials) {
         $(emailInputLocator).setValue(userCredentials.getEmail());
         $(passwordInputLocator).setValue(userCredentials.getPassword());
         $(submitButtonLocator).click();
     }
-
 }
